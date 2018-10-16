@@ -15,3 +15,5 @@ Travail en group-programming :bowtie: :
 ### Contenu
 
 Le fichier à utiliser est morpion.rb
+
+![](https://media.giphy.com/media/XreQmk7ETCak0/giphy.gif)
