@@ -1,28 +1,32 @@
 require "pry"
 
 class BoardCase
+#La classe a 2 attr_accessor, sa valeur (X, O, ou vide), ainsi que son numéro de case)
   attr_accessor :value, :case_number
-  #TO DO : la classe a 2 attr_accessor, sa valeur (X, O, ou vide), ainsi que son numéro de case)
+  
 
+  #On règle sa valeur, ainsi que son numéro de case
   def initialize
     @value = value
     @case_number = case_number
-    #TO DO doit régler sa valeur, ainsi que son numéro de case
   end
-  
+
+  #On renvoiela valeur au format string
   def to_s
-    @value.to_s #TO DO : doit renvoyer la valeur au format string
+    @value.to_s
   end
 
 end
 
 class Board
+  #La classe a 1 attr_accessor, une array qui contient les BoardCases
+  #count sert à compter les tours
   include Enumerable
   attr_accessor :array
   @@count = 1
-  #TO DO : la classe a 1 attr_accessor, une array qui contient les BoardCases
 
-
+  #Quand la classe s'initialize, elle doit créer 9 instances BoardCases
+  #Ces instances sont rangées dans une array qui est l'attr_accessor de la classe
   def initialize
     @a1 = BoardCase.new
     @a2 = BoardCase.new
@@ -34,125 +38,191 @@ class Board
     @c2 = BoardCase.new
     @c3 = BoardCase.new
 
-    @array = [@a1.value, @a2.value, @a3.value, @b1.value, @b2.value, @b3.value, @c1.value, @c2.value, @c3.value]
-    
-    #TO DO :
-    #Quand la classe s'initialize, elle doit créer 9 instances BoardCases
-    #Ces instances sont rangées dans une array qui est l'attr_accessor de la classe
+    @array = [@a1.value = nil , @a2.value  = nil, @a3.value = nil , @b1.value = nil , @b2.value = nil , @b3.value = nil , @c1.value = nil , @c2.value = nil , @c3.value = nil ]
   end
 
  def player_one
-    # Méthode qui change la valeur ("", 0 ou X) de la BoardCase en fonction du choix du joueur qui a les X pour refléter sont coup
-    puts "joueur 1 choisis une case:"
+    # Le Joueur 1 va commencer à jouer. Si la case est déjà prise, il ne pourra pas jouer sur la même. Il sera invité à rejouer
+    puts "Joueur 1 : choisis une case stp !"
     x = gets.chomp.to_i
     case x
       when 1 
-          @a1.value = "X" 
+        if @a1.value == "X" || @a1.value == "O"
+          puts "la case est déjà prise"
+          player_one
+        else @a1.value = "X" 
+        end
         display
-
       when 2 
-        @a2.value = "X"
-          display
+        if @a2.value == "X" || @a2.value == "O"
+          puts "la case est déjà prise"
+          player_one
+        else @a2.value = "X" 
+        end
+        display
       when 3 
-        @a3.value = "X"
-          display
+        if @a3.value == "X" || @a3.value == "O"
+          puts "la case est déjà prise"
+          player_one
+        else @a3.value = "X" 
+        end
+        display
       when 4 
-        @b1.value = "X"
-          display
+        if @b1.value == "X" || @b1.value == "O"
+          puts "la case est déjà prise"
+          player_one
+        else @b1.value = "X" 
+        end
+        display
       when 5 
-        @b2.value = "X"
-          display
+         if @b2.value == "X" || @b2.value == "O"
+          puts "la case est déjà prise"
+          player_one
+        else @b2.value = "X" 
+        end
+        display
       when 6 
-        @b3.value = "X"
-          display
+         if @b3.value == "X" || @b3.value == "O"
+          puts "la case est déjà prise"
+          player_one
+        else @b3.value = "X" 
+        end
+        display
       when 7 
-        @c1.value = "X"
-          display
+           if @c1.value == "X" || @c1.value == "O"
+          puts "la case est déjà prise"
+          player_one
+        else @c1.value = "X" 
+        end
+        display
       when 8 
-        @c2.value = "X"
-          display
+            if @c2.value == "X" || @c2.value == "O"
+          puts "la case est déjà prise"
+          player_one
+        else @c2.value = "X" 
+        end
+        display
       when 9 
-        @c3.value = "X"
-          display
-      else puts "la case est déjà prise"
-        player_one
+        if @c3.value == "X" || @c3.value == "O"
+          puts "la case est déjà prise"
+          player_one
+        else @c3.value = "X" 
+        end
+        display
       end
-    victory? # on vérifie si une combinaison gagnante a été obtenue
+    #On vérifie si le joueur a gagné
+    victory? 
+    #On vérifie si on a rempli les 9 cases
     @@count += 1
     if @@count <= 9
-    player_two # on passe au joueur 2
+    #On passe au joueur 2
+    player_two
   else 
+    # Si les 9 cases sont pleines mais qu'il n'y a pas de vaiqueur : égalité !
     display
-    puts "Egalité!" #Cas où les 9 coups ont été joués sans qu'il n'y ait de vainqueur
+    puts "Egalité!"
   end
 end
 
   def player_two
-    # # Méthode qui change la valeur ("", 0 ou X) de la BoardCase en fonction du choix du joueur qui a les 0 pour refléter sont coup
+    # Le Joueur 2 va à jouer. Si la case est déjà prise, il ne pourra pas jouer sur la même. Il sera invité à rejouer
     puts "joueur 2 choisis une case:"
     x = gets.chomp.to_i
     case x
       when 1 
-        @a1.value = "O"
-          display
+        if @a1.value == "X" || @a1.value == "O"
+          puts "la case est déjà prise"
+          player_two
+        else @a1.value = "O" 
+        end
+        display
       when 2 
-        @a2.value = "O"
-          display
+        if @a2.value == "X" || @a2.value == "O" 
+          puts "la case est déjà prise"
+          player_two
+        else @a2.value = "O" 
+        end
+        display
       when 3 
-        @a3.value = "O"
-          display
-      when 4
-        @b1.value = "O"
-          display
+        if @a3.value == "X" || @a3.value == "O"
+          puts "la case est déjà prise"
+          player_two
+        else @a3.value = "O" 
+        end
+        display
+      when 4 
+        if @b1.value == "X" || @b1.value == "O"
+          puts "la case est déjà prise"
+          player_two
+        else @b1.value = "O" 
+        end
+        display
       when 5 
-        @b2.value = "O"
-          display
-      when 6
-        @b3.value = "O"
-          display
+         if @b2.value == "X" || @b2.value == "O"
+          puts "la case est déjà prise"
+          player_two
+        else @b2.value = "O" 
+        end
+        display
+      when 6 
+         if @b3.value == "X" || @b3.value == "O"
+          puts "la case est déjà prise"
+          player_two
+        else @b3.value = "O" 
+        end
+        display
       when 7 
-        @c1.value = "O"
-          display
-      when 8
-        @c2.value = "O"
-          display
+           if @c1.value == "X" || @c1.value == "O"
+          puts "la case est déjà prise"
+          player_two
+        else @c1.value = "O" 
+        end
+        display
+      when 8 
+            if @c2.value == "X" || @c2.value == "O"
+          puts "la case est déjà prise"
+          player_two
+        else @c2.value = "O" 
+        end
+        display
       when 9 
-        @c3.value = "O"
-          display
-      else puts "la case est déjà prise"
-        player_two
+        if @c3.value == "X" || @c3.value == "O"
+          puts "la case est déjà prise"
+          player_two
+        else @c3.value = "O" 
+        end
       end
-    victory? # on vérifie si une combinaison gagnate a été obtenue
+    victory?
     @@count += 1
     if @@count <= 9
-    player_one # on repasse au joueur 1
+    #On passe au joueur 1
+    player_one
   else
-    display #Cas où les 9 coups ont été joués sans qu'il n'y ait de vainqueur
+    display
     puts "Egalité!"
   end
 end
   
-
+  #Affichage du jeu
   def display
-   
-    puts "_________"
-    puts "|#{@a1} | #{@a2} | #{@a3}|"
-    puts "|_______|"
-    puts "|#{@b1} | #{@b2} | #{@b3}|"
-    puts "|_______|"
-    puts "|#{@c1} | #{@c2} | #{@c3}|"
-    puts "|_______|"
+    puts "  #{@a1}  |  #{@a2}  |  #{@a3}  "
+    puts "--------------"
+    puts "  #{@b1}  |  #{@b2}  |  #{@b3}  "
+    puts "--------------"
+    puts "  #{@c1}  |  #{@c2}  |  #{@c3}  "
+    puts " "
   #TO DO : afficher le plateau
 
   end
 
+  # Conditions de victoire
   def victory?
       # LE X GAGNE 
       if @a1.value == "X" && @a2.value == "X" && @a3.value == "X" || @a1.value == "X" && @b2.value == "X" && @c3.value == "X"||
          @a1.value == "X" && @b1.value == "X" && @c1.value == "X" || @a2.value == "X" && @b2.value == "X" && @c2.value == "X"||
          @a3.value == "X" && @b3.value == "X" && @c3.value == "X" || @b1.value == "X" && @b2.value == "X" && @b3.value == "X"||
          @c1.value == "X" && @c2.value == "X" && @c3.value == "X" || @c1.value == "X" && @b2.value == "X" && @a3.value == "X"
-      puts "VICTORYYYYY ! "
+      puts "Bravo, les X ont gagné ! "
       exit
       end
       # LE O GAGNE 
@@ -160,54 +230,47 @@ end
          @a1.value == "O" && @b1.value == "O" && @c1.value == "O" || @a2.value == "O" && @b2.value == "O" && @c2.value == "O"||
          @a3.value == "O" && @b3.value == "O" && @c3.value == "O" || @b1.value == "O" && @b2.value == "O" && @b3.value == "O"||
          @c1.value == "O" && @c2.value == "O" && @c3.value == "O" || @c1.value == "O" && @b2.value == "O" && @a3.value == "O"
-      puts "VICTORYYYYY ! "
+      puts "Bravo, les 0 ont gagné ! "
       exit
       end
   end
 end
 
+
 class Player
-  #TO DO : la classe a 2 attr_accessor, son nom, sa valeur (X ou O). Elle a un attr_writer : il a gagné ?
- attr_accessor :name_player, :valeur_player
- attr_writer :win
+ attr_accessor :name_player
   
   def initialize
-    #TO DO : doit régler son nom, sa valeur, son état de victoire
     @name_player = name_player
-    @valeur_player = valeur_player
-    #@win = (def victory?)
   end
-
 end 
 
+
 class Game
- 
  def initialize
+      # On a deux joueurs
       player1 = Player.new
       player2 = Player.new
-       print "Bienvenue sur Tic-Tac-Toe !!"
+       puts "Bienvenue sur Tic-Tac-Toe !!"
        #les joueurs entrent leurs noms
-       print "Bonjour, quel est votre nom joueur 1 ?"
+       puts "Bonjour, quel est votre nom joueur 1 ?"
        player1.name_player = gets.chomp
-       print "Bonjour, quel est votre nom joueur 2 ? "
+       puts "Bonjour, quel est votre nom joueur 2 ? "
        player2.name_player = gets.chomp
 
+       puts " "
        puts "Bonjour #{player1.name_player} et #{player2.name_player}, nous sommes prêts à commencer "
-       puts "#{player1.name_player} tu auras les X. #{player2.name_player} tu auras les O "
+       puts "#{player1.name_player} tu auras les : X. #{player2.name_player} tu auras les : O "
+       puts " "
 
   end
 
-  #def go
 
-
-
-    # TO DO : lance la partie
-  #end
-
-  def lancement
-      #affiche le tableau
+  def go
+      #Affiche le plateau de jeu avec les numéros correspondant à chaque case
       puts "LE JEU COMMENCE !!!!"
-      puts "Voici le plateau de jeu : "
+      puts "Voici le plateau de jeu :"
+      puts " "
       puts "_____________"
       puts "| 1 | 2 | 3 |"
       puts "|-----------|"
@@ -215,16 +278,11 @@ class Game
       puts "|-----------|"
       puts "| 7 | 8 | 9 |"
       puts "-------------"
-  lancement = Board.new
-  lancement.player_one
+      puts " "
+  go = Board.new
+  go.player_one
 
   end
-
-    #TO DO : affiche le plateau, demande au joueur il joue quoi, vérifie si un joueur a gagné, passe au joueur suivant si la partie n'est pas finie
-  
-
-
-#Game.new.go
 end
-binding.pry 
 
+Game.new.go
